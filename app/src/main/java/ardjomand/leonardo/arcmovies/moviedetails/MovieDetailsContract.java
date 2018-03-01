@@ -13,7 +13,7 @@ public interface MovieDetailsContract {
         void loadMovieDetails(int movieId);
     }
 
-    interface View extends BaseContract.View {
+    interface View extends BaseContract.View<Presenter> {
         void showMovieDetails(Movie movie);
     }
 }

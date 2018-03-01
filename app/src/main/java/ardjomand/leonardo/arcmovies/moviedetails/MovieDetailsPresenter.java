@@ -14,6 +14,7 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
 
     public MovieDetailsPresenter(MovieDetailsContract.View view, MoviesRepository moviesRepository) {
         mView = view;
+        mView.setPresenter(this);
         mRepository = moviesRepository;
     }
 
