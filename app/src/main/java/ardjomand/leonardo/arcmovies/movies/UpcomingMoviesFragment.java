@@ -2,6 +2,8 @@ package ardjomand.leonardo.arcmovies.movies;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ardjomand.leonardo.arcmovies.R;
-import ardjomand.leonardo.arcmovies.movies.dummy.DummyContent;
-import ardjomand.leonardo.arcmovies.movies.dummy.DummyContent.DummyItem;
+import ardjomand.leonardo.arcmovies.data.MoviesRepositoryImpl;
+import ardjomand.leonardo.arcmovies.model.Movie;
 
 /**
  * A fragment representing a list of Items.
@@ -20,13 +25,15 @@ import ardjomand.leonardo.arcmovies.movies.dummy.DummyContent.DummyItem;
  * Activities containing this fragment MUST implement the {@link OnUpcomingMoviesFragmentListener}
  * interface.
  */
-public class UpcomingMoviesFragment extends Fragment {
+public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesContract.View {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 2;
     private OnUpcomingMoviesFragmentListener mListener;
+    private UpcomingMoviesContract.Presenter mPresenter;
+    private UpcomingMoviesAdapter mMoviesAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -52,10 +59,12 @@ public class UpcomingMoviesFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        new UpcomingMoviesPresenter(this, new MoviesRepositoryImpl());
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upcoming_movies_list, container, false);
 
@@ -68,11 +77,18 @@ public class UpcomingMoviesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new UpcomingMoviesAdapter(DummyContent.ITEMS, mListener));
+            mMoviesAdapter = new UpcomingMoviesAdapter(new ArrayList<Movie>(), mListener);
+            recyclerView.setAdapter(mMoviesAdapter);
         }
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mPresenter.loadUpcomingMovies();
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -91,6 +107,32 @@ public class UpcomingMoviesFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void setPresenter(UpcomingMoviesContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void setLoading(boolean visibility) {
+        // TODO add loading
+    }
+
+    @Override
+    public void showErrorMessage() {
+        // TODO add error message
+    }
+
+    @Override
+    public void showUpcomingMovies(List<Movie> movies) {
+        // TODO show upcoming movies
+        mMoviesAdapter.replaceMovies(movies);
+    }
+
+    @Override
+    public void openMovie(int movieId) {
+        // TODO open movie details
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -102,6 +144,6 @@ public class UpcomingMoviesFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnUpcomingMoviesFragmentListener {
-        void onMovieClicked(DummyItem item);
+        void onMovieClicked(Movie movie);
     }
 }

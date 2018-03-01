@@ -12,10 +12,11 @@ import ardjomand.leonardo.arcmovies.model.Movie;
 class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
     private final UpcomingMoviesContract.View mView;
-    private final MoviesRepository mRepository;
+    private MoviesRepository mRepository;
 
     public UpcomingMoviesPresenter(UpcomingMoviesContract.View view, MoviesRepository moviesRepository) {
         mView = view;
+        mView.setPresenter(this);
         mRepository = moviesRepository;
     }
 

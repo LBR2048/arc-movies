@@ -4,10 +4,10 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.List;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
 import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -37,16 +37,16 @@ public class MoviesRemoteRepository implements MoviesRepository{
 
     @Override
     public void loadUpcomingMovies(final LoadUpcomingMoviesCallback loadUpcomingMoviesCallback) {
-        Call<List<Movie>> call = mTmdbEndpointInterface.getUpcomingMovies();
-        call.enqueue(new Callback<List<Movie>>() {
+        Call<UpcomingMovies> call = mTmdbEndpointInterface.getUpcomingMovies();
+        call.enqueue(new Callback<UpcomingMovies>() {
             @Override
-            public void onResponse(@NonNull Call<List<Movie>> call, @NonNull Response<List<Movie>> response) {
-                loadUpcomingMoviesCallback.onSuccess(response.body());
+            public void onResponse(@NonNull Call<UpcomingMovies> call, @NonNull Response<UpcomingMovies> response) {
+                loadUpcomingMoviesCallback.onSuccess(response.body().getResults());
                 Log.d(LOG_TAG, response.toString());
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Movie>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<UpcomingMovies> call, @NonNull Throwable t) {
                 loadUpcomingMoviesCallback.onFailure();
                 t.printStackTrace();
             }

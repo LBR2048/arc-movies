@@ -6,24 +6,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import ardjomand.leonardo.arcmovies.R;
-import ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener;
-import ardjomand.leonardo.arcmovies.movies.dummy.DummyContent.DummyItem;
-
 import java.util.List;
 
+import ardjomand.leonardo.arcmovies.R;
+import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener;
+
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
  * specified {@link UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Movie> mMovies;
     private final OnUpcomingMoviesFragmentListener mListener;
 
-    public UpcomingMoviesAdapter(List<DummyItem> items, OnUpcomingMoviesFragmentListener listener) {
-        mValues = items;
+    public UpcomingMoviesAdapter(List<Movie> items, OnUpcomingMoviesFragmentListener listener) {
+        mMovies = items;
         mListener = listener;
     }
 
@@ -36,9 +36,9 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = mMovies.get(position);
+        holder.mIdView.setText(String.valueOf(mMovies.get(position).getId()));
+        holder.mContentView.setText(mMovies.get(position).getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,25 +54,30 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mMovies.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Movie mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.id);
+            mContentView = view.findViewById(R.id.content);
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+    }
+
+    public void replaceMovies(List<Movie> movies) {
+        mMovies.addAll(movies);
+        notifyDataSetChanged();
     }
 }

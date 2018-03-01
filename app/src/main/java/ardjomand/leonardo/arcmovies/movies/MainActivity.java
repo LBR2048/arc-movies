@@ -1,11 +1,11 @@
 package ardjomand.leonardo.arcmovies.movies;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import ardjomand.leonardo.arcmovies.R;
-import ardjomand.leonardo.arcmovies.movies.dummy.DummyContent;
+import ardjomand.leonardo.arcmovies.model.Movie;
 
 public class MainActivity extends AppCompatActivity
         implements UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMovieClicked(DummyContent.DummyItem item) {
+    public void onMovieClicked(Movie movie) {
 
     }
 }

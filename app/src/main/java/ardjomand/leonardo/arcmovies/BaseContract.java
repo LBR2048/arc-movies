@@ -6,7 +6,9 @@ package ardjomand.leonardo.arcmovies;
 
 public interface BaseContract {
 
-    interface View {
+    interface View<T> {
+
+        void setPresenter(T presenter);
 
         void setLoading(boolean visibility);
 
