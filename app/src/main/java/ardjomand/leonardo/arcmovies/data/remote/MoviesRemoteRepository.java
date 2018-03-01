@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MoviesRemoteRepository implements MoviesRepository{
 
     private static final String LOG_TAG = MoviesRemoteRepository.class.getSimpleName();
-    private static final String BASE_URL = "http://api.themoviedb.org/3/movie/";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final String QUERY_PARAMETER_API_KEY = "api_key";
     private static final String API_KEY = "1f54bd990f1cdfb230adb312546d765d";
 

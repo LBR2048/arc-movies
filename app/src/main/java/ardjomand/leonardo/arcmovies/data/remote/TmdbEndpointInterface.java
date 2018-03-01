@@ -13,9 +13,9 @@ import retrofit2.http.Path;
  */
 
 public interface TmdbEndpointInterface {
-    @GET("/movie/upcoming")
+    @GET("movie/upcoming")
     Call<List<Movie>> getUpcomingMovies();
 
-    @GET("/movie/{movie_id}")
+    @GET("movie/{movie_id}")
     Call<Movie> getMovie(@Path("movie_id") int movieId);
 }
