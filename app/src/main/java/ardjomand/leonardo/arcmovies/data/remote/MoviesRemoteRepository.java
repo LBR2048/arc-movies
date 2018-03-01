@@ -8,6 +8,7 @@ import java.util.List;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
 import ardjomand.leonardo.arcmovies.model.Movie;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -88,9 +89,18 @@ public class MoviesRemoteRepository implements MoviesRepository{
     private final Interceptor authInterceptor = new Interceptor() {
         @Override
         public okhttp3.Response intercept(@NonNull Interceptor.Chain chain) throws IOException {
-            Request newRequest = chain.request().newBuilder()
-                    .addHeader(QUERY_PARAMETER_API_KEY, API_KEY).build();
-            return chain.proceed(newRequest);
+            Request request = chain.request();
+            HttpUrl url = request.url()
+                    .newBuilder()
+                    .addQueryParameter(QUERY_PARAMETER_API_KEY, API_KEY)
+                    .build();
+
+            request = request
+                    .newBuilder()
+                    .url(url)
+                    .build();
+
+            return chain.proceed(request);
         }
     };
 }
