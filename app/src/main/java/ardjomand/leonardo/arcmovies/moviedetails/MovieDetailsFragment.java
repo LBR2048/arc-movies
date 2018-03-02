@@ -120,6 +120,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
             CollapsingToolbarLayout toolbarLayout =
                     getActivity().findViewById(R.id.toolbar_layout);
             toolbarLayout.setTitle(title);
+            toolbarLayout.setTitleEnabled(true);
         }
     }
 

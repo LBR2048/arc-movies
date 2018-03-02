@@ -1,10 +1,14 @@
 package ardjomand.leonardo.arcmovies.movies;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,10 +23,15 @@ import ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment.OnUpcomingMovi
  */
 public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAdapter.ViewHolder> {
 
+    private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
+
+    private final Context mContext;
     private final List<Movie> mMovies;
     private final OnUpcomingMoviesFragmentListener mListener;
 
-    public UpcomingMoviesAdapter(List<Movie> items, OnUpcomingMoviesFragmentListener listener) {
+    public UpcomingMoviesAdapter(Context context, List<Movie> items,
+            OnUpcomingMoviesFragmentListener listener) {
+        mContext = context;
         mMovies = items;
         mListener = listener;
     }
@@ -37,8 +46,14 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mMovies.get(position);
-        holder.mIdView.setText(String.valueOf(mMovies.get(position).getId()));
-        holder.mContentView.setText(mMovies.get(position).getTitle());
+        holder.mTitleView.setText(mMovies.get(position).getTitle());
+        Picasso.with(mContext)
+                .load(BASE_POSTER_URL + mMovies.get(position).getPosterPath())
+                .resize(400, 800)
+                .centerInside()
+                .into(holder.mPosterView);
+        holder.mGenreView.setText(mMovies.get(position).getGenreIds().toString());
+        holder.mReleaseDateView.setText(mMovies.get(position).getReleaseDate());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,20 +74,24 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mTitleView;
+        public final ImageView mPosterView;
+        public final TextView mGenreView;
+        public final TextView mReleaseDateView;
         public Movie mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.id);
-            mContentView = view.findViewById(R.id.content);
+            mTitleView = view.findViewById(R.id.movie_title);
+            mPosterView = view.findViewById(R.id.movie_poster);
+            mGenreView = view.findViewById(R.id.movie_genre);
+            mReleaseDateView = view.findViewById(R.id.movie_release_date);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mTitleView.getText() + "'";
         }
     }
 

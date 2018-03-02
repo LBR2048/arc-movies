@@ -74,7 +74,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
 
-            mMoviesAdapter = new UpcomingMoviesAdapter(new ArrayList<Movie>(), mListener);
+            mMoviesAdapter = new UpcomingMoviesAdapter(getContext(), new ArrayList<Movie>(), mListener);
             recyclerView.setAdapter(mMoviesAdapter);
 
             if (mColumnCount <= 1) {
