@@ -2,7 +2,10 @@ package ardjomand.leonardo.arcmovies.movies;
 
 import android.util.Log;
 
+import java.util.List;
+
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
+import ardjomand.leonardo.arcmovies.model.Movie;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 
 /**
@@ -17,6 +20,7 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
     private MoviesRepository mRepository;
     private int mCurrentPage = 0;
     private boolean isLoading = false;
+    private boolean mIsFinished;
 
     public UpcomingMoviesPresenter(UpcomingMoviesContract.View view, MoviesRepository moviesRepository) {
         mView = view;
@@ -34,9 +38,13 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
     @Override
     public void loadMoreUpcomingMovies() {
-        if (!isLoading) {
+        if (!isLoading && !mIsFinished) {
             mCurrentPage++;
             loadUpcomingMovies(mCurrentPage);
+        }
+
+        if (mIsFinished) {
+            Log.i(LOG_TAG, "All upcoming movies loaded");
         }
     }
 
@@ -45,12 +53,18 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
         isLoading = true;
         mView.setLoading(true);
         mRepository.loadUpcomingMovies(new MoviesRepository.LoadUpcomingMoviesCallback() {
+
             @Override
             public void onSuccess(UpcomingMovies upcomingMovies) {
                 Log.i(LOG_TAG, "Page " + String.valueOf(mCurrentPage) + " loaded");
                 isLoading = false;
                 mView.setLoading(false);
-                mView.showUpcomingMovies(upcomingMovies.getResults());
+                List<Movie> movies = upcomingMovies.getResults();
+                if (movies.isEmpty()) {
+                    mIsFinished = true;
+                } else {
+                    mView.showUpcomingMovies(movies);
+                }
             }
 
             @Override
