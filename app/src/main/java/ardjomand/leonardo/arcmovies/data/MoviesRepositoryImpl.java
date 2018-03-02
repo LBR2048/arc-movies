@@ -11,8 +11,8 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     private final MoviesRepository mRemoteRepository = new MoviesRemoteRepository();
 
     @Override
-    public void loadUpcomingMovies(LoadUpcomingMoviesCallback loadUpcomingMoviesCallback) {
-        mRemoteRepository.loadUpcomingMovies(loadUpcomingMoviesCallback);
+    public void loadUpcomingMovies(LoadUpcomingMoviesCallback loadUpcomingMoviesCallback, int page) {
+        mRemoteRepository.loadUpcomingMovies(loadUpcomingMoviesCallback, page);
     }
 
     @Override

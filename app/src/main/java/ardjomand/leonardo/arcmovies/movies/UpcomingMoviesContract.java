@@ -13,7 +13,9 @@ public interface UpcomingMoviesContract {
 
     interface Presenter {
 
-        void loadUpcomingMovies();
+        void reloadUpcomingMovies();
+
+        void loadMoreUpcomingMovies();
 
         void onMovieClicked(int movieId);
     }

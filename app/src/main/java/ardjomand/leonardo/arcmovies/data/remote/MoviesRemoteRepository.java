@@ -36,12 +36,12 @@ public class MoviesRemoteRepository implements MoviesRepository{
     }
 
     @Override
-    public void loadUpcomingMovies(final LoadUpcomingMoviesCallback loadUpcomingMoviesCallback) {
-        Call<UpcomingMovies> call = mTmdbEndpointInterface.getUpcomingMovies();
+    public void loadUpcomingMovies(final LoadUpcomingMoviesCallback loadUpcomingMoviesCallback, int page) {
+        Call<UpcomingMovies> call = mTmdbEndpointInterface.getUpcomingMovies(page);
         call.enqueue(new Callback<UpcomingMovies>() {
             @Override
             public void onResponse(@NonNull Call<UpcomingMovies> call, @NonNull Response<UpcomingMovies> response) {
-                loadUpcomingMoviesCallback.onSuccess(response.body().getResults());
+                loadUpcomingMoviesCallback.onSuccess(response.body());
                 Log.d(LOG_TAG, response.toString());
             }
 

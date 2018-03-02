@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,9 @@ import ardjomand.leonardo.arcmovies.model.Movie;
  */
 public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesContract.View {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+    private static final double PAGINATION_THRESHOLD = 5;
+
     private int mColumnCount = 2;
     private OnUpcomingMoviesFragmentListener mListener;
     private UpcomingMoviesContract.Presenter mPresenter;
@@ -65,20 +66,55 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upcoming_movies_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+
             mMoviesAdapter = new UpcomingMoviesAdapter(new ArrayList<Movie>(), mListener);
             recyclerView.setAdapter(mMoviesAdapter);
+
+            if (mColumnCount <= 1) {
+                final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                // TODO extract this code
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        int visibleItemsCount = linearLayoutManager.getChildCount();
+                        int totalItemsCount = linearLayoutManager.getItemCount();
+                        int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+
+                        if (totalItemsCount - (visibleItemsCount + firstVisibleItemPosition) < PAGINATION_THRESHOLD) {
+                            mPresenter.loadMoreUpcomingMovies();
+                        }
+                    }
+                });
+
+            } else {
+                final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, mColumnCount);
+                recyclerView.setLayoutManager(gridLayoutManager);
+
+                // TODO extract this code
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        int visibleItemsCount = gridLayoutManager.getChildCount();
+                        int totalItemsCount = gridLayoutManager.getItemCount();
+                        int firstVisibleItemPosition = gridLayoutManager.findFirstVisibleItemPosition();
+
+                        if (totalItemsCount - (visibleItemsCount + firstVisibleItemPosition) < PAGINATION_THRESHOLD) {
+                            mPresenter.loadMoreUpcomingMovies();
+                        }
+                    }
+                });
+            }
         }
         return view;
     }
@@ -87,7 +123,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mPresenter.loadUpcomingMovies();
+        mPresenter.reloadUpcomingMovies();
     }
 
     @Override
@@ -114,7 +150,8 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
 
     @Override
     public void setLoading(boolean visibility) {
-        // TODO add loading
+        // TODO add progress bar loading
+        if (visibility) Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -124,7 +161,6 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
 
     @Override
     public void showUpcomingMovies(List<Movie> movies) {
-        // TODO show upcoming movies
         mMoviesAdapter.replaceMovies(movies);
     }
 
