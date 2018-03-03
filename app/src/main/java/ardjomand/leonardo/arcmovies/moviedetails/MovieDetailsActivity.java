@@ -27,15 +27,6 @@ public class MovieDetailsActivity extends AppCompatActivity
         int intExtra = getIntent().getIntExtra(EXTRA_MOVIE_ID, -1);
 
         showMovieDetailsFragment(intExtra);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     private void showMovieDetailsFragment(int movieId) {
@@ -44,7 +35,7 @@ public class MovieDetailsActivity extends AppCompatActivity
         if (fragmentManager.findFragmentByTag(MOVIE_DETAILS_FRAGMENT_TAG) == null) {
             MovieDetailsFragment recipesFragment = MovieDetailsFragment.newInstance(movieId);
             fragmentManager.beginTransaction()
-                    .replace(R.id.frame_content_scrolling, recipesFragment, MOVIE_DETAILS_FRAGMENT_TAG)
+                    .replace(R.id.movie_details_frame, recipesFragment, MOVIE_DETAILS_FRAGMENT_TAG)
                     .commit();
         }
     }
