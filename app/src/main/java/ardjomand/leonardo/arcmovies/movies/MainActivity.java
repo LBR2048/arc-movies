@@ -1,5 +1,6 @@
 package ardjomand.leonardo.arcmovies.movies;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import ardjomand.leonardo.arcmovies.R;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
+import ardjomand.leonardo.arcmovies.moviedetails.MovieDetailsActivity;
 import ardjomand.leonardo.arcmovies.moviedetails.MovieDetailsFragment;
 
 public class MainActivity extends AppCompatActivity implements
@@ -49,10 +51,10 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onMovieClicked(UpcomingMovie upcomingMovie) {
-//        Intent intent = new Intent(this, MovieDetailsActivity.class);
-//        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, upcomingMovie.getId());
-//        startActivity(intent);
-        showMovieDetailsFragment(upcomingMovie.getId());
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, upcomingMovie.getId());
+        startActivity(intent);
+//        showMovieDetailsFragment(upcomingMovie.getId());
     }
 
     @Override
