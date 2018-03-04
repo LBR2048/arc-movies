@@ -92,7 +92,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         mGenreTextView = view.findViewById(R.id.movie_details_genre);
         mReleaseDate = view.findViewById(R.id.movie_details_release_date);
         loadMovieDetails();
-        setTitle(" ");
     }
 
     private void loadMovieDetails() {
