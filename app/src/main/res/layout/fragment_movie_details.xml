@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/movie_details_poster"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="280dp"
             android:scaleType="centerCrop"
             android:textAppearance="?attr/textAppearanceListItem"
             tools:src="@mipmap/ic_launcher"/>

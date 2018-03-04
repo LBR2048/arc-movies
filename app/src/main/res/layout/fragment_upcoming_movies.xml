@@ -3,22 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/primary_light">
 
     <ImageView
         android:id="@+id/movie_poster"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="320dp"
         android:scaleType="centerCrop"
         android:textAppearance="?attr/textAppearanceListItem"
         tools:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/movie_title"
+        style="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/primary_text"
         tools:text="Title"/>
 
     <TextView
@@ -27,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/secondary_text"
         tools:text="Genre"/>
 
     <TextView
@@ -35,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@color/secondary_text"
         tools:text="Release Date"/>
 
 </LinearLayout>
