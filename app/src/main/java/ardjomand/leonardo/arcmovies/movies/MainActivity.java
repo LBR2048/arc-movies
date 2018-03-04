@@ -1,6 +1,5 @@
 package ardjomand.leonardo.arcmovies.movies;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import ardjomand.leonardo.arcmovies.R;
 import ardjomand.leonardo.arcmovies.model.Movie;
-import ardjomand.leonardo.arcmovies.moviedetails.MovieDetailsActivity;
 import ardjomand.leonardo.arcmovies.moviedetails.MovieDetailsFragment;
 
 public class MainActivity extends AppCompatActivity implements
@@ -37,11 +35,11 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void showMovieDetailsFragment() {
+    private void showMovieDetailsFragment(int movieId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (fragmentManager.findFragmentByTag(MOVIE_DETAILS_FRAGMENT_TAG) == null) {
-            MovieDetailsFragment recipesFragment = MovieDetailsFragment.newInstance(284054);
+            MovieDetailsFragment recipesFragment = MovieDetailsFragment.newInstance(movieId);
             fragmentManager.beginTransaction()
                     .replace(R.id.upcoming_movies_frame, recipesFragment, MOVIE_DETAILS_FRAGMENT_TAG)
                     .addToBackStack(null)
@@ -51,10 +49,10 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onMovieClicked(Movie movie) {
-        Intent intent = new Intent(this, MovieDetailsActivity.class);
-        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.getId());
-        startActivity(intent);
-//        showMovieDetailsFragment();
+//        Intent intent = new Intent(this, MovieDetailsActivity.class);
+//        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.getId());
+//        startActivity(intent);
+        showMovieDetailsFragment(movie.getId());
     }
 
     @Override

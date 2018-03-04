@@ -5,12 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import ardjomand.leonardo.arcmovies.R;
 import ardjomand.leonardo.arcmovies.data.MoviesRepositoryImpl;
@@ -26,12 +30,16 @@ import ardjomand.leonardo.arcmovies.model.Movie;
  */
 public class MovieDetailsFragment extends Fragment implements MovieDetailsContract.View {
 
+    private static final String BASE_BACKDROP_URL = "http://image.tmdb.org/t/p/w780";
     private static final String ARG_MOVIE_ID = "param1";
 
     private int mMovieId;
     private OnFragmentInteractionListener mListener;
     private TextView mOverviewTextView;
     private MovieDetailsContract.Presenter mPresenter;
+    private ImageView mPosterImageView;
+    private TextView mGenreTextView;
+    private TextView mReleaseDate;
 
     public MovieDetailsFragment() {
         // Required empty public constructor
@@ -65,7 +73,10 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mPosterImageView = view.findViewById(R.id.movie_details_poster);
         mOverviewTextView = view.findViewById(R.id.movie_details_overview);
+        mGenreTextView = view.findViewById(R.id.movie_details_genre);
+        mReleaseDate = view.findViewById(R.id.movie_details_release_date);
         mPresenter.loadMovieDetails(mMovieId);
         setTitle(" ");
     }
@@ -112,15 +123,20 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
     @Override
     public void showMovieDetails(Movie movie) {
         setTitle(movie.getTitle());
+        Picasso.with(getContext())
+                .load(BASE_BACKDROP_URL + movie.getBackdropPath())
+                .into(mPosterImageView);
         mOverviewTextView.setText(movie.getOverview());
+        mGenreTextView.setText(movie.getGenreIds().toString());
+        mReleaseDate.setText(movie.getReleaseDate());
     }
 
     private void setTitle(String title) {
-        if (getActivity() != null) {
-            CollapsingToolbarLayout toolbarLayout =
-                    getActivity().findViewById(R.id.toolbar_layout);
-            toolbarLayout.setTitle(title);
-            toolbarLayout.setTitleEnabled(true);
+        if (getActivity() instanceof AppCompatActivity) {
+            ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (supportActionBar != null) {
+                supportActionBar.setTitle(title);
+            }
         }
     }
 
