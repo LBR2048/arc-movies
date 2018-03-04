@@ -53,7 +53,8 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
                 .centerInside()
                 .into(holder.mPosterView);
         holder.mGenreView.setText(mUpcomingMovies.get(position).getGenreIds().toString());
-        holder.mReleaseDateView.setText(mUpcomingMovies.get(position).getReleaseDate());
+        holder.mReleaseDateView.setText(mContext.getString(R.string.release_date,
+                mUpcomingMovies.get(position).getReleaseDate()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

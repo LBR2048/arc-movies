@@ -145,7 +145,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
                 .into(mPosterImageView);
         mOverviewTextView.setText(overview);
         mGenreTextView.setText(text);
-        mReleaseDate.setText(releaseDate);
+        mReleaseDate.setText(getString(R.string.release_date, releaseDate));
     }
 
     private void loadMovieDetails() {
