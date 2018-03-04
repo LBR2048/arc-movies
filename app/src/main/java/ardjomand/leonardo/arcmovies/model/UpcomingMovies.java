@@ -13,7 +13,7 @@ public class UpcomingMovies {
 
     @SerializedName("results")
     @Expose
-    private List<Movie> results = null;
+    private List<UpcomingMovie> results = null;
     @SerializedName("page")
     @Expose
     private Integer page;
@@ -24,11 +24,11 @@ public class UpcomingMovies {
     @Expose
     private Integer totalPages;
 
-    public List<Movie> getResults() {
+    public List<UpcomingMovie> getResults() {
         return results;
     }
 
-    public void setResults(List<Movie> results) {
+    public void setResults(List<UpcomingMovie> results) {
         this.results = results;
     }
 

@@ -1,7 +1,7 @@
 package ardjomand.leonardo.arcmovies.moviedetails;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.MovieDetails;
 
 /**
  * Created by unity on 25/02/18.
@@ -23,7 +23,7 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
         mView.setLoading(true);
         mRepository.loadMovieDetails(new MoviesRepository.LoadMovieDetailsCallback() {
             @Override
-            public void onSuccess(Movie movieDetails) {
+            public void onSuccess(MovieDetails movieDetails) {
                 mView.setLoading(false);
                 mView.showMovieDetails(movieDetails);
             }

@@ -1,6 +1,6 @@
 package ardjomand.leonardo.arcmovies.data;
 
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.MovieDetails;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 
 /**
@@ -20,7 +20,7 @@ public interface MoviesRepository {
 
     interface LoadMovieDetailsCallback {
 
-        void onSuccess(Movie movieDetails);
+        void onSuccess(MovieDetails movieDetails);
 
         void onFailure();
     }

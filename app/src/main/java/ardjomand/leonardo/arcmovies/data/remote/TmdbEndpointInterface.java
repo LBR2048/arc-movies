@@ -1,6 +1,7 @@
 package ardjomand.leonardo.arcmovies.data.remote;
 
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.MovieDetails;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -17,5 +18,5 @@ public interface TmdbEndpointInterface {
     Call<UpcomingMovies> getUpcomingMovies(@Query("page") int page);
 
     @GET("movie/{movie_id}")
-    Call<Movie> getMovie(@Path("movie_id") int movieId);
+    Call<MovieDetails> getMovieDetails(@Path("movie_id") int movieId);
 }

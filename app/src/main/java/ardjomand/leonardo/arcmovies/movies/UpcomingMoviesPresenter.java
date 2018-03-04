@@ -5,7 +5,7 @@ import android.util.Log;
 import java.util.List;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 
 /**
@@ -59,7 +59,7 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
                 Log.i(LOG_TAG, "Page " + String.valueOf(mCurrentPage) + " loaded");
                 isLoading = false;
                 mView.setLoading(false);
-                List<Movie> movies = upcomingMovies.getResults();
+                List<UpcomingMovie> movies = upcomingMovies.getResults();
                 if (movies.isEmpty()) {
                     mIsFinished = true;
                 } else {

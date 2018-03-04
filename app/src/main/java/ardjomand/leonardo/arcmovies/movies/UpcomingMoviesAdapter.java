@@ -13,11 +13,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ardjomand.leonardo.arcmovies.R;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link UpcomingMovie} and makes a call to the
  * specified {@link UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener}.
  * TODO: Replace the implementation with code for your data type.
  */
@@ -26,13 +26,13 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
     private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
 
     private final Context mContext;
-    private final List<Movie> mMovies;
+    private final List<UpcomingMovie> mUpcomingMovies;
     private final OnUpcomingMoviesFragmentListener mListener;
 
-    public UpcomingMoviesAdapter(Context context, List<Movie> items,
+    public UpcomingMoviesAdapter(Context context, List<UpcomingMovie> items,
             OnUpcomingMoviesFragmentListener listener) {
         mContext = context;
-        mMovies = items;
+        mUpcomingMovies = items;
         mListener = listener;
     }
 
@@ -45,15 +45,15 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mMovies.get(position);
-        holder.mTitleView.setText(mMovies.get(position).getTitle());
+        holder.mItem = mUpcomingMovies.get(position);
+        holder.mTitleView.setText(mUpcomingMovies.get(position).getTitle());
         Picasso.with(mContext)
-                .load(BASE_POSTER_URL + mMovies.get(position).getPosterPath())
+                .load(BASE_POSTER_URL + mUpcomingMovies.get(position).getPosterPath())
                 .resize(400, 800)
                 .centerInside()
                 .into(holder.mPosterView);
-        holder.mGenreView.setText(mMovies.get(position).getGenreIds().toString());
-        holder.mReleaseDateView.setText(mMovies.get(position).getReleaseDate());
+        holder.mGenreView.setText(mUpcomingMovies.get(position).getGenreIds().toString());
+        holder.mReleaseDateView.setText(mUpcomingMovies.get(position).getReleaseDate());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
 
     @Override
     public int getItemCount() {
-        return mMovies.size();
+        return mUpcomingMovies.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -78,7 +78,7 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
         public final ImageView mPosterView;
         public final TextView mGenreView;
         public final TextView mReleaseDateView;
-        public Movie mItem;
+        public UpcomingMovie mItem;
 
         public ViewHolder(View view) {
             super(view);
@@ -95,8 +95,8 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
         }
     }
 
-    public void replaceMovies(List<Movie> movies) {
-        mMovies.addAll(movies);
+    public void replaceMovies(List<UpcomingMovie> upcomingMovies) {
+        mUpcomingMovies.addAll(upcomingMovies);
         notifyDataSetChanged();
     }
 }

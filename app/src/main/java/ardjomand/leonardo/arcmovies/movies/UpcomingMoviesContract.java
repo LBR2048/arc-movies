@@ -3,7 +3,7 @@ package ardjomand.leonardo.arcmovies.movies;
 import java.util.List;
 
 import ardjomand.leonardo.arcmovies.BaseContract;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 
 /**
  * Created by unity on 25/02/18.
@@ -22,7 +22,7 @@ public interface UpcomingMoviesContract {
 
     interface View extends BaseContract.View<Presenter> {
 
-        void showUpcomingMovies(List<Movie> movies);
+        void showUpcomingMovies(List<UpcomingMovie> upcomingMovies);
 
         void openMovie(int movieId);
     }

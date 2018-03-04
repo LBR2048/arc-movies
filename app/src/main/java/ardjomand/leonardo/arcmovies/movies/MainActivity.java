@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import ardjomand.leonardo.arcmovies.R;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.moviedetails.MovieDetailsFragment;
 
 public class MainActivity extends AppCompatActivity implements
@@ -48,11 +48,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onMovieClicked(Movie movie) {
+    public void onMovieClicked(UpcomingMovie upcomingMovie) {
 //        Intent intent = new Intent(this, MovieDetailsActivity.class);
-//        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.getId());
+//        intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, upcomingMovie.getId());
 //        startActivity(intent);
-        showMovieDetailsFragment(movie.getId());
+        showMovieDetailsFragment(upcomingMovie.getId());
     }
 
     @Override

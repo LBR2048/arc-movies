@@ -18,7 +18,7 @@ import java.util.List;
 
 import ardjomand.leonardo.arcmovies.R;
 import ardjomand.leonardo.arcmovies.data.MoviesRepositoryImpl;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 
 /**
  * A fragment representing a list of Items.
@@ -74,7 +74,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
 
-            mMoviesAdapter = new UpcomingMoviesAdapter(getContext(), new ArrayList<Movie>(), mListener);
+            mMoviesAdapter = new UpcomingMoviesAdapter(getContext(), new ArrayList<UpcomingMovie>(), mListener);
             recyclerView.setAdapter(mMoviesAdapter);
 
             if (mColumnCount <= 1) {
@@ -160,8 +160,8 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     }
 
     @Override
-    public void showUpcomingMovies(List<Movie> movies) {
-        mMoviesAdapter.replaceMovies(movies);
+    public void showUpcomingMovies(List<UpcomingMovie> upcomingMovies) {
+        mMoviesAdapter.replaceMovies(upcomingMovies);
     }
 
     @Override
@@ -180,6 +180,6 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnUpcomingMoviesFragmentListener {
-        void onMovieClicked(Movie movie);
+        void onMovieClicked(UpcomingMovie upcomingMovie);
     }
 }

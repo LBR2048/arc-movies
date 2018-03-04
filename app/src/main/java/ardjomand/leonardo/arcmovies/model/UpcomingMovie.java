@@ -9,7 +9,7 @@ import java.util.List;
  * Created by unity on 25/02/18.
  */
 
-public class Movie {
+public class UpcomingMovie {
 
     @SerializedName("vote_count")
     @Expose
@@ -168,7 +168,7 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return "UpcomingMovie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';

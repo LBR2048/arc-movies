@@ -18,7 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import ardjomand.leonardo.arcmovies.R;
 import ardjomand.leonardo.arcmovies.data.MoviesRepositoryImpl;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.MovieDetails;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -121,14 +122,14 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
     }
 
     @Override
-    public void showMovieDetails(Movie movie) {
-        setTitle(movie.getTitle());
+    public void showMovieDetails(MovieDetails movieDetails) {
+        setTitle(movieDetails.getTitle());
         Picasso.with(getContext())
-                .load(BASE_BACKDROP_URL + movie.getBackdropPath())
+                .load(BASE_BACKDROP_URL + movieDetails.getBackdropPath())
                 .into(mPosterImageView);
-        mOverviewTextView.setText(movie.getOverview());
-        mGenreTextView.setText(movie.getGenreIds().toString());
-        mReleaseDate.setText(movie.getReleaseDate());
+        mOverviewTextView.setText(movieDetails.getOverview());
+//        mGenreTextView.setText(movieDetails.getGenres().toString());
+        mReleaseDate.setText(movieDetails.getReleaseDate());
     }
 
     private void setTitle(String title) {

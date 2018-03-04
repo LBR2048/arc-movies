@@ -6,7 +6,8 @@ import android.util.Log;
 import java.io.IOException;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
-import ardjomand.leonardo.arcmovies.model.Movie;
+import ardjomand.leonardo.arcmovies.model.MovieDetails;
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -56,16 +57,16 @@ public class MoviesRemoteRepository implements MoviesRepository{
 
     @Override
     public void loadMovieDetails(final LoadMovieDetailsCallback loadMovieDetailsCallback, int movieId) {
-        Call<Movie> call = mTmdbEndpointInterface.getMovie(movieId);
-        call.enqueue(new Callback<Movie>() {
+        Call<MovieDetails> call = mTmdbEndpointInterface.getMovieDetails(movieId);
+        call.enqueue(new Callback<MovieDetails>() {
             @Override
-            public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
+            public void onResponse(@NonNull Call<MovieDetails> call, @NonNull Response<MovieDetails> response) {
                 loadMovieDetailsCallback.onSuccess(response.body());
                 Log.d(LOG_TAG, response.toString());
             }
 
             @Override
-            public void onFailure(@NonNull Call<Movie> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<MovieDetails> call, @NonNull Throwable t) {
                 loadMovieDetailsCallback.onFailure();
                 t.printStackTrace();
             }
