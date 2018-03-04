@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -20,16 +20,34 @@
             tools:src="@mipmap/ic_launcher"/>
 
         <TextView
-            android:id="@+id/movie_details_overview"
+            style="@style/Base.TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin" />
+            android:layout_marginBottom="@dimen/vertical_text_margin"
+            android:layout_marginEnd="@dimen/horizontal_text_margin"
+            android:layout_marginStart="@dimen/horizontal_text_margin"
+            android:layout_marginTop="@dimen/vertical_text_margin"
+            android:text="@string/plot"/>
+
+        <TextView
+            android:id="@+id/movie_details_overview"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/vertical_text_margin"
+            android:layout_marginEnd="@dimen/horizontal_text_margin"
+            android:layout_marginStart="@dimen/horizontal_text_margin"
+            android:layout_marginTop="@dimen/vertical_text_margin"
+            tools:text="A California high school student plans to escape from her family and small town by going to college in New York."/>
 
         <TextView
             android:id="@+id/movie_details_genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/vertical_text_margin"
+            android:layout_marginEnd="@dimen/horizontal_text_margin"
+            android:layout_marginStart="@dimen/horizontal_text_margin"
+            android:layout_marginTop="@dimen/vertical_text_margin"
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="Genre"/>
 
@@ -37,7 +55,10 @@
             android:id="@+id/movie_details_release_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginBottom="@dimen/vertical_text_margin"
+            android:layout_marginEnd="@dimen/horizontal_text_margin"
+            android:layout_marginStart="@dimen/horizontal_text_margin"
+            android:layout_marginTop="@dimen/vertical_text_margin"
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="Release Date"/>
 

@@ -19,7 +19,7 @@
         style="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="@dimen/vertical_text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@color/primary_text"
         tools:text="Title"/>
@@ -28,7 +28,7 @@
         android:id="@+id/movie_genre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="@dimen/vertical_text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@color/secondary_text"
         tools:text="Genre"/>
@@ -37,7 +37,7 @@
         android:id="@+id/movie_release_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="@dimen/vertical_text_margin"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@color/secondary_text"
         tools:text="Release Date"/>
