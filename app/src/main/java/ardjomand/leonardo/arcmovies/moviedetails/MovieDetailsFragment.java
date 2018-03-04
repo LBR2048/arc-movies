@@ -3,11 +3,13 @@ package ardjomand.leonardo.arcmovies.moviedetails;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import ardjomand.leonardo.arcmovies.R;
 import ardjomand.leonardo.arcmovies.data.MoviesRepositoryImpl;
-import ardjomand.leonardo.arcmovies.model.MovieDetails;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 
 /**
@@ -32,9 +35,12 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 public class MovieDetailsFragment extends Fragment implements MovieDetailsContract.View {
 
     private static final String BASE_BACKDROP_URL = "http://image.tmdb.org/t/p/w780";
-    private static final String ARG_MOVIE_ID = "param1";
+    private static final String ARG_INPUT_TYPE = "arg-input-type";
+    private static final String INPUT_TYPE_MOVIE_ID = "arg-input-type-movie-id";
+    private static final String INPUT_TYPE_MOVIE = "arg-input-type-movie";
+    private static final String ARG_MOVIE = "arg-movie";
+    private static final String ARG_MOVIE_ID = "arg-movie-id";
 
-    private int mMovieId;
     private OnFragmentInteractionListener mListener;
     private TextView mOverviewTextView;
     private MovieDetailsContract.Presenter mPresenter;
@@ -49,7 +55,17 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
     public static MovieDetailsFragment newInstance(int movieId) {
         MovieDetailsFragment fragment = new MovieDetailsFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_INPUT_TYPE, INPUT_TYPE_MOVIE_ID);
         args.putInt(ARG_MOVIE_ID, movieId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static MovieDetailsFragment newInstance(UpcomingMovie upcomingMovie) {
+        MovieDetailsFragment fragment = new MovieDetailsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_INPUT_TYPE, INPUT_TYPE_MOVIE);
+        args.putParcelable(ARG_MOVIE, upcomingMovie);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,9 +73,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mMovieId = getArguments().getInt(ARG_MOVIE_ID);
-        }
 
         new MovieDetailsPresenter(this, new MoviesRepositoryImpl());
     }
@@ -78,8 +91,28 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         mOverviewTextView = view.findViewById(R.id.movie_details_overview);
         mGenreTextView = view.findViewById(R.id.movie_details_genre);
         mReleaseDate = view.findViewById(R.id.movie_details_release_date);
-        mPresenter.loadMovieDetails(mMovieId);
+        loadMovieDetails();
         setTitle(" ");
+    }
+
+    private void loadMovieDetails() {
+        if (getArguments() != null) {
+            switch (getArguments().getString(ARG_INPUT_TYPE, null)) {
+                case INPUT_TYPE_MOVIE:
+                    Log.i("input", "movie");
+                    UpcomingMovie upcomingMovie = getArguments().getParcelable(ARG_MOVIE);
+                    mPresenter.getMovieDetails(upcomingMovie);
+                    break;
+                case INPUT_TYPE_MOVIE_ID:
+                    Log.i("input", "movieId");
+                    int movieId = getArguments().getInt(ARG_MOVIE_ID);
+                    mPresenter.loadMovieDetails(movieId);
+                    break;
+                default:
+                    Log.i("input", "unknown");
+                    break;
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -122,14 +155,15 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
     }
 
     @Override
-    public void showMovieDetails(MovieDetails movieDetails) {
-        setTitle(movieDetails.getTitle());
+    public void showMovieDetails(String title, String backdropPath, String overview, String text,
+                                 String releaseDate) {
+        setTitle(title);
         Picasso.with(getContext())
-                .load(BASE_BACKDROP_URL + movieDetails.getBackdropPath())
+                .load(BASE_BACKDROP_URL + backdropPath)
                 .into(mPosterImageView);
-        mOverviewTextView.setText(movieDetails.getOverview());
-        mGenreTextView.setText(movieDetails.getGenres().toString());
-        mReleaseDate.setText(movieDetails.getReleaseDate());
+        mOverviewTextView.setText(overview);
+        mGenreTextView.setText(text);
+        mReleaseDate.setText(releaseDate);
     }
 
     private void setTitle(String title) {
