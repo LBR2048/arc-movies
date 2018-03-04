@@ -34,20 +34,25 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
  */
 public class MovieDetailsFragment extends Fragment implements MovieDetailsContract.View {
 
+    //region Constants
     private static final String BASE_BACKDROP_URL = "http://image.tmdb.org/t/p/w780";
     private static final String ARG_INPUT_TYPE = "arg-input-type";
     private static final String INPUT_TYPE_MOVIE_ID = "arg-input-type-movie-id";
     private static final String INPUT_TYPE_MOVIE = "arg-input-type-movie";
     private static final String ARG_MOVIE = "arg-movie";
     private static final String ARG_MOVIE_ID = "arg-movie-id";
+    //endregion
 
+    //region Member Variables
     private OnFragmentInteractionListener mListener;
     private TextView mOverviewTextView;
     private MovieDetailsContract.Presenter mPresenter;
     private ImageView mPosterImageView;
     private TextView mGenreTextView;
     private TextView mReleaseDate;
+    //endregion
 
+    //region Constructors
     public MovieDetailsFragment() {
         // Required empty public constructor
     }
@@ -69,7 +74,9 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         fragment.setArguments(args);
         return fragment;
     }
+    //endregion
 
+    //region Lifecycle
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +101,53 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         loadMovieDetails();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+    //endregion
+
+    //region Base Callbacks
+    @Override
+    public void setPresenter(MovieDetailsContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void setLoading(boolean visibility) {
+        // TODO show loading
+    }
+
+    @Override
+    public void showErrorMessage() {
+        // TODO show error message
+    }
+    //endregion
+
+    @Override
+    public void showMovieDetails(String title, String backdropPath, String overview, String text,
+                                 String releaseDate) {
+        setTitle(title);
+        Picasso.with(getContext())
+                .load(BASE_BACKDROP_URL + backdropPath)
+                .into(mPosterImageView);
+        mOverviewTextView.setText(overview);
+        mGenreTextView.setText(text);
+        mReleaseDate.setText(releaseDate);
+    }
+
     private void loadMovieDetails() {
         if (getArguments() != null) {
             switch (getArguments().getString(ARG_INPUT_TYPE, null)) {
@@ -114,50 +168,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
-    public void setPresenter(MovieDetailsContract.Presenter presenter) {
-        mPresenter = presenter;
-    }
-
-    @Override
-    public void setLoading(boolean visibility) {
-        // TODO show loading
-    }
-
-    @Override
-    public void showErrorMessage() {
-        // TODO show error message
-    }
-
-    @Override
-    public void showMovieDetails(String title, String backdropPath, String overview, String text,
-                                 String releaseDate) {
-        setTitle(title);
-        Picasso.with(getContext())
-                .load(BASE_BACKDROP_URL + backdropPath)
-                .into(mPosterImageView);
-        mOverviewTextView.setText(overview);
-        mGenreTextView.setText(text);
-        mReleaseDate.setText(releaseDate);
-    }
-
     private void setTitle(String title) {
         if (getActivity() instanceof AppCompatActivity) {
             ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -167,16 +177,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

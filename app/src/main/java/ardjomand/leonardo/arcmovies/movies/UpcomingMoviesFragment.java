@@ -28,23 +28,23 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
  */
 public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesContract.View {
 
+    //region Constants
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final double PAGINATION_THRESHOLD = 5;
+    //endregion
 
+    //region Member Variables
     private int mColumnCount = 2;
     private OnUpcomingMoviesFragmentListener mListener;
     private UpcomingMoviesContract.Presenter mPresenter;
     private UpcomingMoviesAdapter mMoviesAdapter;
+    //endregion
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    //region Constructors
     public UpcomingMoviesFragment() {
+        // Required empty public constructor
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static UpcomingMoviesFragment newInstance(int columnCount) {
         UpcomingMoviesFragment fragment = new UpcomingMoviesFragment();
         Bundle args = new Bundle();
@@ -52,7 +52,9 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
         fragment.setArguments(args);
         return fragment;
     }
+    //endregion
 
+    //region Lifecycle
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,7 +144,9 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
         super.onDetach();
         mListener = null;
     }
+    //endregion
 
+    //region Base Callbacks
     @Override
     public void setPresenter(UpcomingMoviesContract.Presenter presenter) {
         mPresenter = presenter;
@@ -158,6 +162,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     public void showErrorMessage() {
         // TODO add error message
     }
+    //endregion
 
     @Override
     public void showUpcomingMovies(List<UpcomingMovie> upcomingMovies) {
@@ -169,16 +174,6 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
         // TODO open movie details
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnUpcomingMoviesFragmentListener {
         void onMovieClicked(UpcomingMovie upcomingMovie);
     }
