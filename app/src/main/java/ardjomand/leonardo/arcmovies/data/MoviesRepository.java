@@ -1,5 +1,8 @@
 package ardjomand.leonardo.arcmovies.data;
 
+import java.util.List;
+
+import ardjomand.leonardo.arcmovies.model.Genre;
 import ardjomand.leonardo.arcmovies.model.MovieDetails;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 
@@ -26,4 +29,13 @@ public interface MoviesRepository {
     }
 
     void loadMovieDetails(LoadMovieDetailsCallback loadMovieDetailsCallback, int movieId);
+
+    interface LoadGenresCallBack {
+
+        void onSuccess(List<Genre> genres);
+
+        void onFailure();
+    }
+
+    void loadGenres(LoadGenresCallBack loadGenresCallBack);
 }

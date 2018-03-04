@@ -19,4 +19,9 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     public void loadMovieDetails(LoadMovieDetailsCallback loadMovieDetailsCallback, int movieId) {
         mRemoteRepository.loadMovieDetails(loadMovieDetailsCallback, movieId);
     }
+
+    @Override
+    public void loadGenres(LoadGenresCallBack loadGenresCallBack) {
+        mRemoteRepository.loadGenres(loadGenresCallBack);
+    }
 }

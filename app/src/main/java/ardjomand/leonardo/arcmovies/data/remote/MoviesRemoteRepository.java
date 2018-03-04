@@ -4,10 +4,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
+import ardjomand.leonardo.arcmovies.model.Genre;
+import ardjomand.leonardo.arcmovies.model.Genres;
 import ardjomand.leonardo.arcmovies.model.MovieDetails;
-import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -23,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by unity on 25/02/18.
  */
 
-public class MoviesRemoteRepository implements MoviesRepository{
+public class MoviesRemoteRepository implements MoviesRepository {
 
     private static final String LOG_TAG = MoviesRemoteRepository.class.getSimpleName();
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
@@ -68,6 +71,26 @@ public class MoviesRemoteRepository implements MoviesRepository{
             @Override
             public void onFailure(@NonNull Call<MovieDetails> call, @NonNull Throwable t) {
                 loadMovieDetailsCallback.onFailure();
+                t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void loadGenres(final LoadGenresCallBack loadGenresCallBack) {
+        Call<Genres> call = mTmdbEndpointInterface.getGenres();
+        call.enqueue(new Callback<Genres>() {
+            @Override
+            public void onResponse(@NonNull Call<Genres> call, @NonNull Response<Genres> response) {
+                Genres body = response.body();
+                if (body != null) {
+                    loadGenresCallBack.onSuccess(body.getGenres());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Genres> call, @NonNull Throwable t) {
+                loadGenresCallBack.onFailure();
                 t.printStackTrace();
             }
         });
