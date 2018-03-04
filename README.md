@@ -1,4 +1,6 @@
 # arc-movies
+## Overview
+![Screenshot1](https://raw.githubusercontent.com/LBR2048/arc-movies/develop/screenshots/main.png)![Screenshot2](https://raw.githubusercontent.com/LBR2048/arc-movies/develop/screenshots/details.png)
 ## Libraries used
 ### Retrofit
 Retrofit was used to access the TMDB API service. Retrofit is the de facto standard for accessing APIs on Android. It handles connection, authentication and other requirements for accessing APIs while allowing the API to be described as annotated Java interfaces:
