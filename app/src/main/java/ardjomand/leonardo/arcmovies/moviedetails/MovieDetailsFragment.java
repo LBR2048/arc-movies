@@ -128,7 +128,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
                 .load(BASE_BACKDROP_URL + movieDetails.getBackdropPath())
                 .into(mPosterImageView);
         mOverviewTextView.setText(movieDetails.getOverview());
-//        mGenreTextView.setText(movieDetails.getGenres().toString());
+        mGenreTextView.setText(movieDetails.getGenres().toString());
         mReleaseDate.setText(movieDetails.getReleaseDate());
     }
 
