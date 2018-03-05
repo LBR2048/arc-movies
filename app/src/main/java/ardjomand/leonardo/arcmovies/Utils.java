@@ -12,12 +12,16 @@ import ardjomand.leonardo.arcmovies.model.Genre;
 public class Utils {
 
     public static String showListAsString(List<String> items, String separator) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String item : items) {
-            stringBuilder.append(item).append(separator);
+        if (items != null && !items.isEmpty()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String item : items) {
+                stringBuilder.append(item).append(separator);
+            }
+            stringBuilder.setLength(stringBuilder.length() - separator.length());
+            return stringBuilder.toString();
+        } else {
+            return null;
         }
-        stringBuilder.setLength(stringBuilder.length() - separator.length());
-        return stringBuilder.toString();
     }
 
     public static List<String> getGenreNames(List<Genre> genres) {
