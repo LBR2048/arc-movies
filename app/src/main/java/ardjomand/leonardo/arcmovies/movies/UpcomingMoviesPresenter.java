@@ -121,9 +121,4 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
         }
         return genreNames;
     }
-
-    @Override
-    public void onMovieClicked(int movieId) {
-        mView.openMovie(movieId);
-    }
 }

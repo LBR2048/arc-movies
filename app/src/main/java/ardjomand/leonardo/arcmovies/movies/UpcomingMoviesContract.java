@@ -16,8 +16,6 @@ public interface UpcomingMoviesContract {
         void reloadUpcomingMovies();
 
         void loadMoreUpcomingMovies();
-
-        void onMovieClicked(int movieId);
     }
 
     interface View extends BaseContract.View<Presenter> {
