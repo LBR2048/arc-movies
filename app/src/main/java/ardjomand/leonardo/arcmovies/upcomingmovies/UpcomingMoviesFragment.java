@@ -63,6 +63,8 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setRetainInstance(true);
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }

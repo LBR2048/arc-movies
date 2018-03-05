@@ -17,6 +17,7 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
     private static final String LOG_TAG = UpcomingMoviesPresenter.class.getSimpleName();
+    private static final String LOG_LIST_STATE = "List_state";
 
     //region Member Variables
     private final UpcomingMoviesContract.View mView;
@@ -55,7 +56,7 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
     //region Helper Methods
     private void loadUpcomingMovies(int currentPage) {
-        Log.i(LOG_TAG, "Loading page " + String.valueOf(mCurrentPage));
+        Log.i(LOG_LIST_STATE, "Loading page " + String.valueOf(mCurrentPage));
         isLoading = true;
         mView.setLoading(true);
         mRepository.loadUpcomingMovies(new MoviesRepository.LoadUpcomingMoviesCallback() {
@@ -110,7 +111,6 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
             List<String> genreNames = getGenreNamesByIds(genreIds);
             upcomingMovie.setGenreNames(genreNames);
         }
-        // TODO check if 1st page or not
         mView.showUpcomingMovies(upcomingMovies);
     }
 
