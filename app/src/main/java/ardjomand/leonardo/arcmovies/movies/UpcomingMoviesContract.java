@@ -21,7 +21,5 @@ public interface UpcomingMoviesContract {
     interface View extends BaseContract.View<Presenter> {
 
         void showUpcomingMovies(List<UpcomingMovie> upcomingMovies);
-
-        void openMovie(int movieId);
     }
 }
