@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import ardjomand.leonardo.arcmovies.BuildConfig;
+import ardjomand.leonardo.arcmovies.Constants;
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
 import ardjomand.leonardo.arcmovies.model.Genres;
 import ardjomand.leonardo.arcmovies.model.MovieDetails;
@@ -27,10 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MoviesRemoteRepository implements MoviesRepository {
 
     private static final String LOG_TAG = MoviesRemoteRepository.class.getSimpleName();
-    private static final String BASE_URL = "https://api.themoviedb.org/3/";
-    private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
-    private static final String QUERY_PARAMETER_API_KEY = "api_key";
-    private static final String API_KEY = BuildConfig.API_KEY;
 
     private final TmdbEndpointInterface mTmdbEndpointInterface;
 
@@ -111,7 +107,7 @@ public class MoviesRemoteRepository implements MoviesRepository {
         OkHttpClient client = builder.build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -125,7 +121,7 @@ public class MoviesRemoteRepository implements MoviesRepository {
             Request request = chain.request();
             HttpUrl url = request.url()
                     .newBuilder()
-                    .addQueryParameter(QUERY_PARAMETER_API_KEY, API_KEY)
+                    .addQueryParameter(Constants.QUERY_PARAMETER_API_KEY, Constants.API_KEY)
                     .build();
 
             request = request

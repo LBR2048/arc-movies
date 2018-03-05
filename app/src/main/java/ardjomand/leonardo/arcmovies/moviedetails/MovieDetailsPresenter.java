@@ -1,5 +1,6 @@
 package ardjomand.leonardo.arcmovies.moviedetails;
 
+import ardjomand.leonardo.arcmovies.Utils;
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
 import ardjomand.leonardo.arcmovies.model.MovieDetails;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
@@ -13,22 +14,22 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     private final MovieDetailsContract.View mView;
     private final MoviesRepository mRepository;
 
-    public MovieDetailsPresenter(MovieDetailsContract.View view, MoviesRepository moviesRepository) {
+    MovieDetailsPresenter(MovieDetailsContract.View view, MoviesRepository moviesRepository) {
         mView = view;
         mView.setPresenter(this);
         mRepository = moviesRepository;
     }
 
     @Override
-    public void loadMovieDetails(int movieId) {
+    public void getMovieDetails(int movieId) {
         mView.setLoading(true);
         mRepository.loadMovieDetails(new MoviesRepository.LoadMovieDetailsCallback() {
             @Override
             public void onSuccess(MovieDetails movieDetails) {
                 mView.setLoading(false);
-//                mView.showMovieDetails(movieDetails.getTitle(), movieDetails.getBackdropPath(),
-//                        movieDetails.getOverview(), movieDetails.getGenres(),
-//                        movieDetails.getReleaseDate());
+                mView.showMovieDetails(movieDetails.getTitle(), movieDetails.getBackdropPath(),
+                        movieDetails.getOverview(), Utils.getGenreNames(movieDetails.getGenres()),
+                        movieDetails.getReleaseDate());
             }
 
             @Override

@@ -21,6 +21,7 @@ public interface MoviesRepository {
 
     void loadUpcomingMovies(LoadUpcomingMoviesCallback loadUpcomingMoviesCallback, int page);
 
+
     interface LoadMovieDetailsCallback {
 
         void onSuccess(MovieDetails movieDetails);
@@ -29,6 +30,7 @@ public interface MoviesRepository {
     }
 
     void loadMovieDetails(LoadMovieDetailsCallback loadMovieDetailsCallback, int movieId);
+
 
     interface LoadGenresCallBack {
 

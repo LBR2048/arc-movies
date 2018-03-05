@@ -1,4 +1,4 @@
-package ardjomand.leonardo.arcmovies.movies;
+package ardjomand.leonardo.arcmovies.upcomingmovies;
 
 import android.util.Log;
 
@@ -16,16 +16,18 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 
 class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
-    private static String LOG_TAG = UpcomingMoviesPresenter.class.getSimpleName();
+    private static final String LOG_TAG = UpcomingMoviesPresenter.class.getSimpleName();
 
+    //region Member Variables
     private final UpcomingMoviesContract.View mView;
-    private MoviesRepository mRepository;
+    private final MoviesRepository mRepository;
     private int mCurrentPage = 0;
     private boolean isLoading = false;
     private boolean mIsFinished;
     private List<Genre> mGenres;
+    //endregion
 
-    public UpcomingMoviesPresenter(UpcomingMoviesContract.View view, MoviesRepository moviesRepository) {
+    UpcomingMoviesPresenter(UpcomingMoviesContract.View view, MoviesRepository moviesRepository) {
         mView = view;
         mView.setPresenter(this);
         mRepository = moviesRepository;
@@ -51,6 +53,7 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
         }
     }
 
+    //region Helper Methods
     private void loadUpcomingMovies(int currentPage) {
         Log.i(LOG_TAG, "Loading page " + String.valueOf(mCurrentPage));
         isLoading = true;
@@ -110,6 +113,8 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
         mView.showUpcomingMovies(upcomingMovies);
     }
 
+    // This method may be improved if Retrofit returns
+    // HashMap<int genreId, String genreName> instead of List<Integer> genreIds
     private List<String> getGenreNamesByIds(List<Integer> genreIds) {
         List<String> genreNames = new ArrayList<>();
         for (Integer genreId : genreIds) {
@@ -121,4 +126,5 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
         }
         return genreNames;
     }
+    //endregion
 }

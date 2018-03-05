@@ -13,7 +13,7 @@ public interface MovieDetailsContract {
 
     interface Presenter {
 
-        void loadMovieDetails(int movieId);
+        void getMovieDetails(int movieId);
 
         void getMovieDetails(UpcomingMovie upcomingMovie);
     }

@@ -1,4 +1,4 @@
-package ardjomand.leonardo.arcmovies.movies;
+package ardjomand.leonardo.arcmovies.upcomingmovies;
 
 import java.util.List;
 

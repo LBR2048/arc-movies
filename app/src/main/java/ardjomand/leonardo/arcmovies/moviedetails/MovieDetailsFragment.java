@@ -58,6 +58,10 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         // Required empty public constructor
     }
 
+    // This method will be used to open a movie details page when only the id is available
+    // For example:
+    // 1) going from one movie details page to another movie from the same director
+    // 2) moving between movies by swiping left or right
     public static MovieDetailsFragment newInstance(int movieId) {
         MovieDetailsFragment fragment = new MovieDetailsFragment();
         Bundle args = new Bundle();
@@ -99,7 +103,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         mOverviewTextView = view.findViewById(R.id.movie_details_overview);
         mGenreTextView = view.findViewById(R.id.movie_details_genre);
         mReleaseDate = view.findViewById(R.id.movie_details_release_date);
-        loadMovieDetails();
+        getMovieDetails();
     }
 
     @Override
@@ -139,7 +143,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
 
     @Override
     public void showMovieDetails(String title, String backdropPath, String overview,
-                                 List<String> genreNames, String releaseDate) {
+            List<String> genreNames, String releaseDate) {
         setTitle(title);
         Picasso.with(getContext())
                 .load(BASE_BACKDROP_URL + backdropPath)
@@ -149,22 +153,26 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
         mReleaseDate.setText(getString(R.string.release_date, releaseDate));
     }
 
-    private void loadMovieDetails() {
+    //region Helper Methods
+    private void getMovieDetails() {
         if (getArguments() != null) {
-            switch (getArguments().getString(ARG_INPUT_TYPE, null)) {
-                case INPUT_TYPE_MOVIE:
-                    Log.i("input", "movie");
-                    UpcomingMovie upcomingMovie = getArguments().getParcelable(ARG_MOVIE);
-                    mPresenter.getMovieDetails(upcomingMovie);
-                    break;
-                case INPUT_TYPE_MOVIE_ID:
-                    Log.i("input", "movieId");
-                    int movieId = getArguments().getInt(ARG_MOVIE_ID);
-                    mPresenter.loadMovieDetails(movieId);
-                    break;
-                default:
-                    Log.i("input", "unknown");
-                    break;
+            String inputType = getArguments().getString(ARG_INPUT_TYPE, null);
+            if (inputType != null) {
+                switch (inputType) {
+                    case INPUT_TYPE_MOVIE:
+                        Log.i("input", "movie");
+                        UpcomingMovie upcomingMovie = getArguments().getParcelable(ARG_MOVIE);
+                        mPresenter.getMovieDetails(upcomingMovie);
+                        break;
+                    case INPUT_TYPE_MOVIE_ID:
+                        Log.i("input", "movieId");
+                        int movieId = getArguments().getInt(ARG_MOVIE_ID);
+                        mPresenter.getMovieDetails(movieId);
+                        break;
+                    default:
+                        Log.i("input", "unknown");
+                        break;
+                }
             }
         }
     }
@@ -177,6 +185,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
             }
         }
     }
+    //endregion
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

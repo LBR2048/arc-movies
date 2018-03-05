@@ -1,4 +1,4 @@
-package ardjomand.leonardo.arcmovies.movies;
+package ardjomand.leonardo.arcmovies.upcomingmovies;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity implements
         UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener,
         MovieDetailsFragment.OnFragmentInteractionListener {
 
-    public static final String UPCOMING_MOVIES_FRAGMENT_TAG = "upcoming-movies-fragment-tag";
-    public static final String MOVIE_DETAILS_FRAGMENT_TAG = "movie-details-fragment-tag";
+    private static final String UPCOMING_MOVIES_FRAGMENT_TAG = "upcoming-movies-fragment-tag";
+    private static final String MOVIE_DETAILS_FRAGMENT_TAG = "movie-details-fragment-tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    // This method will be used for tablet optimized layout
+    // When a movie is clicked on the list, a separate fragment will show the details
+    // on the right pane of the same Activity
     private void showMovieDetailsFragment(int movieId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -51,10 +54,13 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onMovieClicked(UpcomingMovie upcomingMovie) {
-//        showMovieDetailsActivity(upcomingMovie.getId());
         showMovieDetailsActivity(upcomingMovie);
     }
 
+    // This method will be used to open a movie details page when only the id is available
+    // For example:
+    // 1) going from one movie details page to another movie from the same director
+    // 2) moving between movies by swiping left or right
     private void showMovieDetailsActivity(int movieId) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movieId);

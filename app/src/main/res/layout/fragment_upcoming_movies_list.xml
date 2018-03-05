@@ -7,5 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context="ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment"
+    tools:context="ardjomand.leonardo.arcmovies.upcomingmovies.UpcomingMoviesFragment"
     tools:listitem="@layout/fragment_upcoming_movies" />

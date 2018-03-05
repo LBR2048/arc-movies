@@ -4,6 +4,6 @@
     android:id="@+id/upcoming_movies_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ardjomand.leonardo.arcmovies.movies.MainActivity">
+    tools:context="ardjomand.leonardo.arcmovies.upcomingmovies.MainActivity">
 
 </FrameLayout>

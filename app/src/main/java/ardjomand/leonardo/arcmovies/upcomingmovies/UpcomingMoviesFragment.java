@@ -1,4 +1,4 @@
-package ardjomand.leonardo.arcmovies.movies;
+package ardjomand.leonardo.arcmovies.upcomingmovies;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
  */
 public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesContract.View {
 
-    //region Constants
+    //region ardjomand.leonardo.arcmovies.Constants
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final double PAGINATION_THRESHOLD = 5;
     //endregion
@@ -70,7 +70,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upcoming_movies_list, container, false);
 
-        // Set the adapter
+        // Setup the RecyclerView
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -81,6 +81,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
             final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, mColumnCount);
             recyclerView.setLayoutManager(gridLayoutManager);
 
+            // Setup pagination
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

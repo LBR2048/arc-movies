@@ -1,4 +1,4 @@
-package ardjomand.leonardo.arcmovies.movies;
+package ardjomand.leonardo.arcmovies.upcomingmovies;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,18 +13,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import ardjomand.leonardo.arcmovies.Constants;
 import ardjomand.leonardo.arcmovies.R;
 import ardjomand.leonardo.arcmovies.Utils;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
-import ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener;
+import ardjomand.leonardo.arcmovies.upcomingmovies.UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link UpcomingMovie} and makes a call to the
  * specified {@link UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener}.
  */
 public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAdapter.ViewHolder> {
-
-    private static final String BASE_POSTER_URL = "http://image.tmdb.org/t/p/w500";
 
     private final Context mContext;
     private final List<UpcomingMovie> mUpcomingMovies;
@@ -50,7 +49,7 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
         holder.mItem = mUpcomingMovies.get(position);
         holder.mTitleView.setText(mUpcomingMovies.get(position).getTitle());
         Picasso.with(mContext)
-                .load(BASE_POSTER_URL + mUpcomingMovies.get(position).getPosterPath())
+                .load(Constants.BASE_POSTER_URL + mUpcomingMovies.get(position).getPosterPath())
                 .resize(400, 800)
                 .centerInside()
                 .into(holder.mPosterView);
