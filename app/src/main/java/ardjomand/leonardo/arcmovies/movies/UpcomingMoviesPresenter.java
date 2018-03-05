@@ -16,7 +16,7 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 
 class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
-    private static String LOG_TAG = UpcomingMoviesPresenter.class.getSimpleName();;
+    private static String LOG_TAG = UpcomingMoviesPresenter.class.getSimpleName();
 
     private final UpcomingMoviesContract.View mView;
     private MoviesRepository mRepository;
