@@ -1,5 +1,7 @@
-# arc-movies
+# ArcMovies
 ## Overview
+The ArcMovies app displays a list of upcoming movies provided by The Movie Database (TMDb). Upon clicking on a movie item, more details are shown on a new screen.
+
 ![Screenshot1](https://raw.githubusercontent.com/LBR2048/arc-movies/develop/screenshots/main.png) ![Screenshot2](https://raw.githubusercontent.com/LBR2048/arc-movies/develop/screenshots/details.png)
 ## Libraries used
 ### Retrofit
