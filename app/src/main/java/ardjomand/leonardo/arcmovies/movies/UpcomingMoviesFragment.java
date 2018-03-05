@@ -68,7 +68,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upcoming_movies_list, container, false);
 
         // Set the adapter
@@ -79,44 +79,22 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
             mMoviesAdapter = new UpcomingMoviesAdapter(getContext(), new ArrayList<UpcomingMovie>(), mListener);
             recyclerView.setAdapter(mMoviesAdapter);
 
-            if (mColumnCount <= 1) {
-                final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-                recyclerView.setLayoutManager(linearLayoutManager);
+            final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, mColumnCount);
+            recyclerView.setLayoutManager(gridLayoutManager);
 
-                // TODO extract this code
-                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        int visibleItemsCount = linearLayoutManager.getChildCount();
-                        int totalItemsCount = linearLayoutManager.getItemCount();
-                        int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    int visibleItemsCount = gridLayoutManager.getChildCount();
+                    int totalItemsCount = gridLayoutManager.getItemCount();
+                    int firstVisibleItemPosition = gridLayoutManager.findFirstVisibleItemPosition();
 
-                        if (totalItemsCount - (visibleItemsCount + firstVisibleItemPosition) < PAGINATION_THRESHOLD) {
-                            mPresenter.loadMoreUpcomingMovies();
-                        }
+                    if (totalItemsCount - (visibleItemsCount + firstVisibleItemPosition) < PAGINATION_THRESHOLD) {
+                        mPresenter.loadMoreUpcomingMovies();
                     }
-                });
-
-            } else {
-                final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, mColumnCount);
-                recyclerView.setLayoutManager(gridLayoutManager);
-
-                // TODO extract this code
-                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                        int visibleItemsCount = gridLayoutManager.getChildCount();
-                        int totalItemsCount = gridLayoutManager.getItemCount();
-                        int firstVisibleItemPosition = gridLayoutManager.findFirstVisibleItemPosition();
-
-                        if (totalItemsCount - (visibleItemsCount + firstVisibleItemPosition) < PAGINATION_THRESHOLD) {
-                            mPresenter.loadMoreUpcomingMovies();
-                        }
-                    }
-                });
-            }
+                }
+            });
         }
         return view;
     }
@@ -154,7 +132,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
 
     @Override
     public void setLoading(boolean visibility) {
-        // TODO add progress bar loading
+        // TODO This can be improved by showing a progress bar as the last item of the list instead of a toast
         if (visibility) Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
     }
 

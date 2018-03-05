@@ -21,7 +21,6 @@ import ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment.OnUpcomingMovi
 /**
  * {@link RecyclerView.Adapter} that can display a {@link UpcomingMovie} and makes a call to the
  * specified {@link UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAdapter.ViewHolder> {
 

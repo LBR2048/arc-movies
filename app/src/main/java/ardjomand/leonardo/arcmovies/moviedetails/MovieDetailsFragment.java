@@ -128,8 +128,8 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
 
     @Override
     public void setLoading(boolean visibility) {
-        // TODO show loading
-    }
+        // TODO This can be improved by showing a progress bar
+        if (visibility) Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();    }
 
     @Override
     public void showErrorMessage(String message) {
