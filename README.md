@@ -14,6 +14,8 @@ The dotted lines represent code that is not fully implemented yet.
 
 ## To do
 Optimize screen layout for tablets
+Add a Movie model for the GUI and use UpcomingMovie and MovieDetails exclusively on the repository
+(TMDb uses different movie models depending on the API and they implement the genres list in different ways)
 Add a local data repository
 Add movie search capabilities
 
