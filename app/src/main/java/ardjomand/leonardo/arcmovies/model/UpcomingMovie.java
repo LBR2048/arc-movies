@@ -58,6 +58,8 @@ public class UpcomingMovie implements Parcelable {
     @Expose
     private String releaseDate;
 
+    private List<String> genreNames;
+
     public Integer getVoteCount() {
         return voteCount;
     }
@@ -170,12 +172,23 @@ public class UpcomingMovie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
+    public List<String> getGenreNames() {
+        return genreNames;
+    }
+
+    public void setGenreNames(List<String> genreNames) {
+        this.genreNames = genreNames;
+    }
+
     @Override
     public String toString() {
         return "UpcomingMovie{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';
+    }
+
+    public UpcomingMovie() {
     }
 
     @Override
@@ -199,9 +212,7 @@ public class UpcomingMovie implements Parcelable {
         dest.writeValue(this.adult);
         dest.writeString(this.overview);
         dest.writeString(this.releaseDate);
-    }
-
-    public UpcomingMovie() {
+        dest.writeStringList(this.genreNames);
     }
 
     protected UpcomingMovie(Parcel in) {
@@ -220,9 +231,10 @@ public class UpcomingMovie implements Parcelable {
         this.adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.overview = in.readString();
         this.releaseDate = in.readString();
+        this.genreNames = in.createStringArrayList();
     }
 
-    public static final Parcelable.Creator<UpcomingMovie> CREATOR = new Parcelable.Creator<UpcomingMovie>() {
+    public static final Creator<UpcomingMovie> CREATOR = new Creator<UpcomingMovie>() {
         @Override
         public UpcomingMovie createFromParcel(Parcel source) {
             return new UpcomingMovie(source);

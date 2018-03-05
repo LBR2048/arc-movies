@@ -2,9 +2,11 @@ package ardjomand.leonardo.arcmovies.movies;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
+import ardjomand.leonardo.arcmovies.model.Genre;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
 
@@ -21,6 +23,7 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
     private int mCurrentPage = 0;
     private boolean isLoading = false;
     private boolean mIsFinished;
+    private List<Genre> mGenres;
 
     public UpcomingMoviesPresenter(UpcomingMoviesContract.View view, MoviesRepository moviesRepository) {
         mView = view;
@@ -57,14 +60,16 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
             @Override
             public void onSuccess(UpcomingMovies upcomingMovies) {
                 Log.i(LOG_TAG, "Page " + String.valueOf(mCurrentPage) + " loaded");
-                isLoading = false;
-                mView.setLoading(false);
+
                 List<UpcomingMovie> movies = upcomingMovies.getResults();
                 if (movies.isEmpty()) {
                     mIsFinished = true;
                 } else {
-                    mView.showUpcomingMovies(movies);
+                    addGenreNamesToMoviesAsync(movies);
                 }
+
+                isLoading = false;
+                mView.setLoading(false);
             }
 
             @Override
@@ -75,6 +80,46 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
                 mView.showErrorMessage();
             }
         }, currentPage);
+    }
+
+    private void addGenreNamesToMoviesAsync(final List<UpcomingMovie> upcomingMovies) {
+        if (mGenres == null) {
+            mRepository.loadGenres(new MoviesRepository.LoadGenresCallBack() {
+                @Override
+                public void onSuccess(List<Genre> genres) {
+                    mGenres = genres;
+                    addGenreNamesToMovies(upcomingMovies);
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+        } else {
+            addGenreNamesToMovies(upcomingMovies);
+        }
+    }
+
+    private void addGenreNamesToMovies(List<UpcomingMovie> upcomingMovies) {
+        for (UpcomingMovie upcomingMovie : upcomingMovies) {
+            List<Integer> genreIds = upcomingMovie.getGenreIds();
+            List<String> genreNames = getGenreNamesByIds(genreIds);
+            upcomingMovie.setGenreNames(genreNames);
+        }
+        mView.showUpcomingMovies(upcomingMovies);
+    }
+
+    private List<String> getGenreNamesByIds(List<Integer> genreIds) {
+        List<String> genreNames = new ArrayList<>();
+        for (Integer genreId : genreIds) {
+            for (Genre genre : mGenres) {
+                if (genreId.equals(genre.getId())) {
+                    genreNames.add(genre.getName());
+                }
+            }
+        }
+        return genreNames;
     }
 
     @Override

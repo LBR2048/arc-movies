@@ -26,9 +26,9 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
             @Override
             public void onSuccess(MovieDetails movieDetails) {
                 mView.setLoading(false);
-                mView.showMovieDetails(movieDetails.getTitle(), movieDetails.getBackdropPath(),
-                        movieDetails.getOverview(), movieDetails.getGenres().toString(),
-                        movieDetails.getReleaseDate());
+//                mView.showMovieDetails(movieDetails.getTitle(), movieDetails.getBackdropPath(),
+//                        movieDetails.getOverview(), movieDetails.getGenres(),
+//                        movieDetails.getReleaseDate());
             }
 
             @Override
@@ -42,7 +42,7 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
     @Override
     public void getMovieDetails(UpcomingMovie upcomingMovie) {
         mView.showMovieDetails(upcomingMovie.getTitle(), upcomingMovie.getBackdropPath(),
-                upcomingMovie.getOverview(), upcomingMovie.getGenreIds().toString(),
+                upcomingMovie.getOverview(), upcomingMovie.getGenreNames(),
                 upcomingMovie.getReleaseDate());
     }
 }

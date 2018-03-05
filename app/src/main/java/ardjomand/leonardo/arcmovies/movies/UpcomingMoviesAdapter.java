@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ardjomand.leonardo.arcmovies.R;
+import ardjomand.leonardo.arcmovies.Utils;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.movies.UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener;
 
@@ -52,7 +53,8 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
                 .resize(400, 800)
                 .centerInside()
                 .into(holder.mPosterView);
-        holder.mGenreView.setText(mUpcomingMovies.get(position).getGenreIds().toString());
+        holder.mGenreView.setText(
+                Utils.showListAsString(mUpcomingMovies.get(position).getGenreNames(), ", "));
         holder.mReleaseDateView.setText(mContext.getString(R.string.release_date,
                 mUpcomingMovies.get(position).getReleaseDate()));
 

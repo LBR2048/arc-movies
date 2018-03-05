@@ -1,7 +1,8 @@
 package ardjomand.leonardo.arcmovies.moviedetails;
 
+import java.util.List;
+
 import ardjomand.leonardo.arcmovies.BaseContract;
-import ardjomand.leonardo.arcmovies.model.MovieDetails;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 
 /**
@@ -20,6 +21,6 @@ public interface MovieDetailsContract {
     interface View extends BaseContract.View<Presenter> {
 
         void showMovieDetails(String title, String backdropPath, String overview,
-                              String text, String releaseDate);
+                              List<String> genreNames, String releaseDate);
     }
 }

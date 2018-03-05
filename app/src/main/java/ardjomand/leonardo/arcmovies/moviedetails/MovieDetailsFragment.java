@@ -3,7 +3,6 @@ package ardjomand.leonardo.arcmovies.moviedetails;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ardjomand.leonardo.arcmovies.R;
+import ardjomand.leonardo.arcmovies.Utils;
 import ardjomand.leonardo.arcmovies.data.MoviesRepositoryImpl;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 
@@ -137,14 +137,14 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsContra
     //endregion
 
     @Override
-    public void showMovieDetails(String title, String backdropPath, String overview, String text,
-                                 String releaseDate) {
+    public void showMovieDetails(String title, String backdropPath, String overview,
+                                 List<String> genreNames, String releaseDate) {
         setTitle(title);
         Picasso.with(getContext())
                 .load(BASE_BACKDROP_URL + backdropPath)
                 .into(mPosterImageView);
         mOverviewTextView.setText(overview);
-        mGenreTextView.setText(text);
+        mGenreTextView.setText(Utils.showListAsString(genreNames, ", "));
         mReleaseDate.setText(getString(R.string.release_date, releaseDate));
     }
 
