@@ -4,6 +4,11 @@ The ArcMovies app displays a list of upcoming movies provided by The Movie Datab
 
 ![Screenshot1](https://raw.githubusercontent.com/LBR2048/arc-movies/develop/screenshots/main.png) ![Screenshot2](https://raw.githubusercontent.com/LBR2048/arc-movies/develop/screenshots/details.png)
 
+## Instructions
+To be able to use this app you must have a TMDb API key and insert it in your `local.properties` file. The key must be placed inside double quotes.
+
+    apiKey="<your_api_key>"
+
 ## Architecture
 The app was created using the MVP (Model View Presenter) architecture, where each layer has it own responsibility. This allows for a more modular code that is easier to understand, modify and test. 
 The diagram below shows in a visual way how all the classes are connected. The first draft of the diagram was created before writing any piece of code and was updated to reflect its current state.
