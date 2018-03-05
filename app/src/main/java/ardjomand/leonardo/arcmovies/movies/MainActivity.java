@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import ardjomand.leonardo.arcmovies.R;
-import ardjomand.leonardo.arcmovies.model.MovieDetails;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
 import ardjomand.leonardo.arcmovies.moviedetails.MovieDetailsActivity;
 import ardjomand.leonardo.arcmovies.moviedetails.MovieDetailsFragment;

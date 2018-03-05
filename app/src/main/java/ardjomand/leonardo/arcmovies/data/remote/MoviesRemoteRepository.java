@@ -4,11 +4,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
-import ardjomand.leonardo.arcmovies.model.Genre;
 import ardjomand.leonardo.arcmovies.model.Genres;
 import ardjomand.leonardo.arcmovies.model.MovieDetails;
 import ardjomand.leonardo.arcmovies.model.UpcomingMovies;
