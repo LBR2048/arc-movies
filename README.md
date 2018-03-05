@@ -12,6 +12,11 @@ The diagram below shows in a visual way how all the classes are connected. The f
 
 The dotted lines represent code that is not fully implemented yet.
 
+## To do
+Optimize screen layout for tablets
+Add a local data repository
+Add movie search capabilities
+
 ## Libraries used
 ### Retrofit
 Retrofit was used to access the TMDB API service. Retrofit is the de facto standard for accessing APIs on Android. It handles connection, authentication and other requirements for accessing APIs while allowing the API to be described as annotated Java interfaces:
