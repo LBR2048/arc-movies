@@ -2,11 +2,13 @@ package ardjomand.leonardo.arcmovies.upcomingmovies;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,16 +29,19 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
  */
 public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesContract.View {
 
-    //region ardjomand.leonardo.arcmovies.Constants
+    //region Constants
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final double PAGINATION_THRESHOLD = 5;
+    private static final String LIST_DATA = "List_Data";
+    private static final String LOG_LIST_STATE = "List_state";
     //endregion
 
     //region Member Variables
     private int mColumnCount = 2;
     private OnUpcomingMoviesFragmentListener mListener;
     private UpcomingMoviesContract.Presenter mPresenter;
-    private UpcomingMoviesAdapter mMoviesAdapter;
+    private UpcomingMoviesAdapter mAdapter;
+    private List<UpcomingMovie> mUpcomingMovies = new ArrayList<>();
     //endregion
 
     //region Constructors
@@ -75,8 +80,8 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
 
-            mMoviesAdapter = new UpcomingMoviesAdapter(getContext(), new ArrayList<UpcomingMovie>(), mListener);
-            recyclerView.setAdapter(mMoviesAdapter);
+            mAdapter = new UpcomingMoviesAdapter(getContext(), new ArrayList<UpcomingMovie>(), mListener);
+            recyclerView.setAdapter(mAdapter);
 
             final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, mColumnCount);
             recyclerView.setLayoutManager(gridLayoutManager);
@@ -103,7 +108,14 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mPresenter.reloadUpcomingMovies();
+        if (savedInstanceState == null) {
+            mPresenter.reloadUpcomingMovies();
+        } else {
+            mUpcomingMovies = savedInstanceState.getParcelableArrayList(LIST_DATA);
+            Log.d(LOG_LIST_STATE, "Retrieving " + String.valueOf(mUpcomingMovies.size()) + " movies");
+            mAdapter.replaceMovies(mUpcomingMovies);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -121,6 +133,14 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Log.d(LOG_LIST_STATE, "Saving " + String.valueOf(mUpcomingMovies.size()) + " movies");
+        outState.putParcelableArrayList(LIST_DATA, (ArrayList<? extends Parcelable>) mUpcomingMovies);
     }
     //endregion
 
@@ -144,7 +164,11 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
 
     @Override
     public void showUpcomingMovies(List<UpcomingMovie> upcomingMovies) {
-        mMoviesAdapter.replaceMovies(upcomingMovies);
+        Log.d(LOG_LIST_STATE, "Received " + String.valueOf(upcomingMovies.size()) + " movies from Presenter");
+        mUpcomingMovies.addAll(upcomingMovies);
+        mAdapter.addMovies(upcomingMovies);
+        mAdapter.notifyDataSetChanged();
+        Log.d(LOG_LIST_STATE, "Total: " + String.valueOf(mUpcomingMovies.size()) + " movies");
     }
 
     public interface OnUpcomingMoviesFragmentListener {

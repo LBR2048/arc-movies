@@ -110,6 +110,7 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
             List<String> genreNames = getGenreNamesByIds(genreIds);
             upcomingMovie.setGenreNames(genreNames);
         }
+        // TODO check if 1st page or not
         mView.showUpcomingMovies(upcomingMovies);
     }
 

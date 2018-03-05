@@ -98,7 +98,13 @@ public class UpcomingMoviesAdapter extends RecyclerView.Adapter<UpcomingMoviesAd
         }
     }
 
+    public void addMovies(List<UpcomingMovie> upcomingMovies) {
+        mUpcomingMovies.addAll(upcomingMovies);
+        notifyDataSetChanged();
+    }
+
     public void replaceMovies(List<UpcomingMovie> upcomingMovies) {
+        mUpcomingMovies.clear();
         mUpcomingMovies.addAll(upcomingMovies);
         notifyDataSetChanged();
     }
