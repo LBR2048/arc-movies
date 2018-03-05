@@ -16,7 +16,7 @@ public interface MoviesRepository {
 
         void onSuccess(UpcomingMovies upcomingMovies);
 
-        void onFailure();
+        void onFailure(String message);
     }
 
     void loadUpcomingMovies(LoadUpcomingMoviesCallback loadUpcomingMoviesCallback, int page);
@@ -25,7 +25,7 @@ public interface MoviesRepository {
 
         void onSuccess(MovieDetails movieDetails);
 
-        void onFailure();
+        void onFailure(String message);
     }
 
     void loadMovieDetails(LoadMovieDetailsCallback loadMovieDetailsCallback, int movieId);
@@ -34,7 +34,7 @@ public interface MoviesRepository {
 
         void onSuccess(List<Genre> genres);
 
-        void onFailure();
+        void onFailure(String message);
     }
 
     void loadGenres(LoadGenresCallBack loadGenresCallBack);

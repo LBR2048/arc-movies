@@ -32,9 +32,9 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String message) {
                 mView.setLoading(false);
-                mView.showErrorMessage();
+                mView.showErrorMessage(message);
             }
         }, movieId);
     }

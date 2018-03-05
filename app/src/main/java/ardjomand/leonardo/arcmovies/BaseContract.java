@@ -12,6 +12,6 @@ public interface BaseContract {
 
         void setLoading(boolean visibility);
 
-        void showErrorMessage();
+        void showErrorMessage(String message);
     }
 }

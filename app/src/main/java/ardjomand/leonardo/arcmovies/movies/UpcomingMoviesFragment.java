@@ -159,8 +159,8 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     }
 
     @Override
-    public void showErrorMessage() {
-        // TODO add error message
+    public void showErrorMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
     //endregion
 

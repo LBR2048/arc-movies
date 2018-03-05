@@ -49,7 +49,7 @@ public class MoviesRemoteRepository implements MoviesRepository {
 
             @Override
             public void onFailure(@NonNull Call<UpcomingMovies> call, @NonNull Throwable t) {
-                loadUpcomingMoviesCallback.onFailure();
+                loadUpcomingMoviesCallback.onFailure(t.getMessage());
                 t.printStackTrace();
             }
         });
@@ -67,7 +67,7 @@ public class MoviesRemoteRepository implements MoviesRepository {
 
             @Override
             public void onFailure(@NonNull Call<MovieDetails> call, @NonNull Throwable t) {
-                loadMovieDetailsCallback.onFailure();
+                loadMovieDetailsCallback.onFailure(t.getMessage());
                 t.printStackTrace();
             }
         });
@@ -87,7 +87,7 @@ public class MoviesRemoteRepository implements MoviesRepository {
 
             @Override
             public void onFailure(@NonNull Call<Genres> call, @NonNull Throwable t) {
-                loadGenresCallBack.onFailure();
+                loadGenresCallBack.onFailure(t.getMessage());
                 t.printStackTrace();
             }
         });

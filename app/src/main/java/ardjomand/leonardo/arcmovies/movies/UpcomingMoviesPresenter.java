@@ -73,11 +73,11 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String message) {
                 Log.i(LOG_TAG, "Failure while loading page " + String.valueOf(mCurrentPage));
                 isLoading = false;
                 mView.setLoading(false);
-                mView.showErrorMessage();
+                mView.showErrorMessage(message);
             }
         }, currentPage);
     }
@@ -92,7 +92,7 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
                 }
 
                 @Override
-                public void onFailure() {
+                public void onFailure(String message) {
 
                 }
             });
