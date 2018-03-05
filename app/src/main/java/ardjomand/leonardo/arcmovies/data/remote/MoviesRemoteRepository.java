@@ -44,8 +44,12 @@ public class MoviesRemoteRepository implements MoviesRepository {
         call.enqueue(new Callback<UpcomingMovies>() {
             @Override
             public void onResponse(@NonNull Call<UpcomingMovies> call, @NonNull Response<UpcomingMovies> response) {
-                loadUpcomingMoviesCallback.onSuccess(response.body());
                 Log.d(LOG_TAG, response.toString());
+                if (response.isSuccessful()) {
+                    loadUpcomingMoviesCallback.onSuccess(response.body());
+                } else {
+                    loadUpcomingMoviesCallback.onFailure(response.message());
+                }
             }
 
             @Override
@@ -62,8 +66,12 @@ public class MoviesRemoteRepository implements MoviesRepository {
         call.enqueue(new Callback<MovieDetails>() {
             @Override
             public void onResponse(@NonNull Call<MovieDetails> call, @NonNull Response<MovieDetails> response) {
-                loadMovieDetailsCallback.onSuccess(response.body());
                 Log.d(LOG_TAG, response.toString());
+                if (response.isSuccessful()) {
+                    loadMovieDetailsCallback.onSuccess(response.body());
+                } else {
+                    loadMovieDetailsCallback.onFailure(response.message());
+                }
             }
 
             @Override
@@ -81,8 +89,10 @@ public class MoviesRemoteRepository implements MoviesRepository {
             @Override
             public void onResponse(@NonNull Call<Genres> call, @NonNull Response<Genres> response) {
                 Genres body = response.body();
-                if (body != null) {
+                if (response.isSuccessful() && body != null) {
                     loadGenresCallBack.onSuccess(body.getGenres());
+                } else {
+                    loadGenresCallBack.onFailure(response.message());
                 }
             }
 
