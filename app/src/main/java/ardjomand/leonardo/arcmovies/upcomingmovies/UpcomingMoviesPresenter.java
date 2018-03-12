@@ -56,14 +56,14 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
     //region Helper Methods
     private void loadUpcomingMovies(int currentPage) {
-        Log.i(LOG_LIST_STATE, "Loading page " + String.valueOf(mCurrentPage));
+        Log.i("scroll", "Loading page " + String.valueOf(mCurrentPage));
         isLoading = true;
         mView.setLoading(true);
         mRepository.loadUpcomingMovies(new MoviesRepository.LoadUpcomingMoviesCallback() {
 
             @Override
             public void onSuccess(UpcomingMovies upcomingMovies) {
-                Log.i(LOG_TAG, "Page " + String.valueOf(mCurrentPage) + " loaded");
+                Log.i("scroll", "Page " + String.valueOf(mCurrentPage) + " loaded");
 
                 List<UpcomingMovie> movies = upcomingMovies.getResults();
                 if (movies.isEmpty()) {
@@ -78,8 +78,9 @@ class UpcomingMoviesPresenter implements UpcomingMoviesContract.Presenter {
 
             @Override
             public void onFailure(String message) {
-                Log.i(LOG_TAG, "Failure while loading page " + String.valueOf(mCurrentPage));
+                Log.i("scroll", "Failure while loading page " + String.valueOf(mCurrentPage));
                 isLoading = false;
+                mCurrentPage--;
                 mView.setLoading(false);
                 mView.showErrorMessage(message);
             }

@@ -96,9 +96,11 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
                     int visibleItemsCount = gridLayoutManager.getChildCount();
                     int totalItemsCount = gridLayoutManager.getItemCount();
                     int firstVisibleItemPosition = gridLayoutManager.findFirstVisibleItemPosition();
+                    Log.d("scroll", "scroll captured");
 
                     if (totalItemsCount - (visibleItemsCount + firstVisibleItemPosition) < PAGINATION_THRESHOLD) {
                         mPresenter.loadMoreUpcomingMovies();
+                        Log.d("scroll", "presenter called");
                     }
                 }
             });
