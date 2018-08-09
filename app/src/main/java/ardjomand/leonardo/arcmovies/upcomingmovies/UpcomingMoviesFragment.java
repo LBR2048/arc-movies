@@ -115,8 +115,10 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
         if (savedInstanceState == null) {
             mPresenter.reloadUpcomingMovies();
         } else {
+            // This is not needed with setRetainInstance(true)
             mUpcomingMovies = savedInstanceState.getParcelableArrayList(LIST_DATA);
             Log.d(LOG_LIST_STATE, "Retrieving " + String.valueOf(mUpcomingMovies.size()) + " movies");
+
             mAdapter.replaceMovies(mUpcomingMovies);
             mAdapter.notifyDataSetChanged();
         }
@@ -143,6 +145,7 @@ public class UpcomingMoviesFragment extends Fragment implements UpcomingMoviesCo
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        // This is not needed with setRetainInstance(true)
         Log.d(LOG_LIST_STATE, "Saving " + String.valueOf(mUpcomingMovies.size()) + " movies");
         outState.putParcelableArrayList(LIST_DATA, (ArrayList<? extends Parcelable>) mUpcomingMovies);
     }
