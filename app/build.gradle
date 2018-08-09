@@ -54,3 +54,9 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+// Experimental features required for Parcelable
+// https://kotlinlang.org/docs/tutorials/android-plugin.html#experimental-mode
+androidExtensions {
+    experimental = true
+}
