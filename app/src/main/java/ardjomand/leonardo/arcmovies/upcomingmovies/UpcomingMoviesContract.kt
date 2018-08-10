@@ -1,0 +1,23 @@
+package ardjomand.leonardo.arcmovies.upcomingmovies
+
+import ardjomand.leonardo.arcmovies.BaseContract
+import ardjomand.leonardo.arcmovies.model.UpcomingMovie
+
+/**
+ * Created by unity on 25/02/18.
+ */
+
+interface UpcomingMoviesContract {
+
+    interface Presenter {
+
+        fun reloadUpcomingMovies()
+
+        fun loadMoreUpcomingMovies()
+    }
+
+    interface View : BaseContract.View<Presenter> {
+
+        fun showUpcomingMovies(upcomingMovies: List<UpcomingMovie>)
+    }
+}
