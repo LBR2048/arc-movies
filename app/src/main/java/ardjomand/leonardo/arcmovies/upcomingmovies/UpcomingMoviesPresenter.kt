@@ -120,7 +120,6 @@ internal class UpcomingMoviesPresenter(
     companion object {
 
         private val LOG_TAG = UpcomingMoviesPresenter::class.java.simpleName
-        private val LOG_LIST_STATE = "List_state"
     }
     //endregion
 }

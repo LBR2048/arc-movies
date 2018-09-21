@@ -9,7 +9,7 @@ import ardjomand.leonardo.arcmovies.model.UpcomingMovie;
  * Created by unity on 25/02/18.
  */
 
-public interface MovieDetailsContract {
+interface MovieDetailsContract {
 
     interface Presenter {
 

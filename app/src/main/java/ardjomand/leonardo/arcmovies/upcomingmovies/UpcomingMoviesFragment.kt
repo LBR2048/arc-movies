@@ -1,7 +1,6 @@
 package ardjomand.leonardo.arcmovies.upcomingmovies
 
 import android.content.Context
-import android.graphics.Movie
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
@@ -12,12 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
-import java.util.ArrayList
-
 import ardjomand.leonardo.arcmovies.R
 import ardjomand.leonardo.arcmovies.data.MoviesRepositoryImpl
 import ardjomand.leonardo.arcmovies.model.UpcomingMovie
+import ardjomand.leonardo.arcmovies.upcomingmovies.UpcomingMoviesFragment.OnUpcomingMoviesFragmentListener
+import java.util.*
 
 /**
  * A fragment representing a list of Items.

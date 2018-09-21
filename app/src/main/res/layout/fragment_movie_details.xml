@@ -16,8 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:scaleType="centerCrop"
-            android:textAppearance="?attr/textAppearanceListItem"
-            tools:src="@mipmap/ic_launcher"/>
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            tools:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/description_movie_image" />
 
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Large"
@@ -48,7 +49,7 @@
             android:layout_marginEnd="@dimen/horizontal_text_margin"
             android:layout_marginStart="@dimen/horizontal_text_margin"
             android:layout_marginTop="@dimen/vertical_text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"
+            android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="Genre"/>
 
         <TextView
@@ -59,7 +60,7 @@
             android:layout_marginEnd="@dimen/horizontal_text_margin"
             android:layout_marginStart="@dimen/horizontal_text_margin"
             android:layout_marginTop="@dimen/vertical_text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"
+            android:textAppearance="?android:attr/textAppearanceListItem"
             tools:text="Release Date"/>
 
     </LinearLayout>

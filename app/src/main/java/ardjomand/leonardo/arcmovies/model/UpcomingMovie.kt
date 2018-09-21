@@ -1,13 +1,9 @@
 package ardjomand.leonardo.arcmovies.model
 
-import android.os.Parcel
 import android.os.Parcelable
-
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-
-import java.util.ArrayList
 
 /**
  * Created by unity on 25/02/18.

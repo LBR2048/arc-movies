@@ -4,4 +4,6 @@
     <string name="action_settings">Settings</string>
     <string name="release_date">Release date: %s</string>
     <string name="plot">Plot</string>
+    <string name="description_movie_poster">Movie poster</string>
+    <string name="description_movie_image">Movie image</string>
 </resources>

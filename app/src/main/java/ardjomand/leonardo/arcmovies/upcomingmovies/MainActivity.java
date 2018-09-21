@@ -3,6 +3,7 @@ package ardjomand.leonardo.arcmovies.upcomingmovies;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onMovieClicked(UpcomingMovie upcomingMovie) {
+    public void onMovieClicked(@NonNull UpcomingMovie upcomingMovie) {
         showMovieDetailsActivity(upcomingMovie);
     }
 

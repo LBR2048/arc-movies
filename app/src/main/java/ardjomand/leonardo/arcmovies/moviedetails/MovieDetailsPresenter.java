@@ -1,5 +1,7 @@
 package ardjomand.leonardo.arcmovies.moviedetails;
 
+import android.support.annotation.NonNull;
+
 import ardjomand.leonardo.arcmovies.Utils;
 import ardjomand.leonardo.arcmovies.data.MoviesRepository;
 import ardjomand.leonardo.arcmovies.model.MovieDetails;
@@ -25,7 +27,7 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
         mView.setLoading(true);
         mRepository.loadMovieDetails(new MoviesRepository.LoadMovieDetailsCallback() {
             @Override
-            public void onSuccess(MovieDetails movieDetails) {
+            public void onSuccess(@NonNull MovieDetails movieDetails) {
                 mView.setLoading(false);
                 mView.showMovieDetails(movieDetails.getTitle(), movieDetails.getBackdropPath(),
                         movieDetails.getOverview(), Utils.getGenreNames(movieDetails.getGenres()),
@@ -33,7 +35,7 @@ class MovieDetailsPresenter implements MovieDetailsContract.Presenter {
             }
 
             @Override
-            public void onFailure(String message) {
+            public void onFailure(@NonNull String message) {
                 mView.setLoading(false);
                 mView.showErrorMessage(message);
             }
